@@ -2,7 +2,7 @@
 Project to find location in a room based on Bluetooth LE signal strength to multiple beacons
 
 ## Bluetooth LE scan
-The script requires a recent sudo to call `btmgmt find`, so log into:
+The script requires a recent sudo in order get useful information from `btmgmt find`, so log into:
 ```
 sudo su
 exit
