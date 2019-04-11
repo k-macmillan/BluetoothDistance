@@ -14,4 +14,5 @@ Next run:
 ./get_data.sh x y z
 ```
 Where x, y, and z represent the coordinates in a room. This portion of the project is to gather data points.
+
 **Note:** Executing the previous statement with `sudo` makes `sensor_data.csv` root owner, you don't want that.
