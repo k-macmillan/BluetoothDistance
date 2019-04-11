@@ -1,9 +1,12 @@
 import sys
 import math
 
-rssi_offset = 6
 
 def read_addresses(args):
+    """ Reads the devices file and loads them into a data structure. Then cleans 
+        the input data file and bounces UUIDs against devices, matches are 
+        added to the list. List is then parsed and written to a csv file.
+    """
     # args[1] = input data file
     # args[2] = devices
     # args[3] = csv output file
@@ -43,18 +46,22 @@ def read_addresses(args):
                 for device in devices:
                     rssi_data.append((info[0], info[1], get_distance(device['xyz'], xyz)))
     
-    with open(csv + '.csv', 'a') as file:
+    with open(csv, 'a') as file:
         for item in rssi_data:
             file.write(','.join(str(x) for x in item) + '\n')
 
 def get_distance(a, b):
+    """ Gets distance between two 3D points.
+    """
     return math.sqrt((b[0] - a[0]) * (b[0] - a[0]) +
                      (b[1] - a[1]) * (b[1] - a[1]) +
                      (b[2] - a[2]) * (b[2] - a[2]))
 
 
 def get_address_rssi(string):
-    # Find first ':'
+    """ Parses line (string) of the input data file. Extracts UUID and RSSI 
+        information and returns it. Returns None otherwise.
+    """
     colon = string.find(':')
     if colon != -1:
         # address = string[colon + 2:colon + addr_offset]
@@ -79,19 +86,5 @@ def get_address_rssi(string):
     return address, rssi
 
 
-def test():
-    with open(device_list, 'r') as d_file:
-        devices = {}
-        for line in d_file:
-            name, uuid = line.split(',')
-            devices[name] = uuid
-
-        print(devices)
-
-# test()
-
-# read_addresses()
-
 if __name__ == '__main__':
     read_addresses(sys.argv)
-    # get_distance((0, 0, 0), (10, 10, 10))
